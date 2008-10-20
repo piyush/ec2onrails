@@ -47,6 +47,7 @@ end
   adduser
   apache2
   aptitude
+  build-essential
   bison
   ca-certificates
   cron
@@ -54,12 +55,18 @@ end
   flex
   gcc
   git-core
+  imagemagick
   irb
   less
   libdbm-ruby
+  libfcgi-dev
+  libfcgi-ruby1.8
+  libfcgi0ldbl
   libgdbm-ruby
+  libmagick-dev
   libmysql-ruby
   libopenssl-ruby
+  libpcre3
   libreadline-ruby
   libruby
   libssl-dev
@@ -72,6 +79,7 @@ end
   mysql-client
   mysql-server
   nano
+  nginx
   openssh-server
   postfix
   rdoc
@@ -103,11 +111,15 @@ end
   "memcache-client",
   "mongrel",
   "mongrel_cluster",
+  "mysql",
   "optiflag",
   "rails",
   "rails -v 2.0.2",
+  "rails -v 2.1.1",
   "rails -v 1.2.6",
-  "rake"
+  "rake",
+  "rmagick",
+  "thin"
 ]
 
 @build_root = "/mnt/build"
@@ -139,8 +151,8 @@ end
 desc "Install required ruby gems inside the image's filesystem"
 task :install_gems => [:install_packages] do |t|
   unless_completed(t) do
-    run_chroot "sh -c 'cd /tmp && wget -q http://rubyforge.org/frs/download.php/38646/rubygems-1.2.0.tgz && tar zxf rubygems-1.2.0.tgz'"
-    run_chroot "sh -c 'cd /tmp/rubygems-1.2.0 && ruby setup.rb'"
+    run_chroot "sh -c 'cd /tmp && wget -q http://rubyforge.org/frs/download.php/43985/rubygems-1.3.0.tgz && tar zxf rubygems-1.3.0.tgz'"
+    run_chroot "sh -c 'cd /tmp/rubygems-1.3.0 && ruby setup.rb'"
     run_chroot "ln -sf /usr/bin/gem1.8 /usr/bin/gem"
     run_chroot "gem update --system --no-rdoc --no-ri"
     run_chroot "gem update --no-rdoc --no-ri"
